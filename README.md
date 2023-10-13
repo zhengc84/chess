@@ -1,1 +1,1 @@
-# creating a chess gamne using python and pygame. Other features may be added later
+# Making Chess like they did in Harry Potter or something
