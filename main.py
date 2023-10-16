@@ -11,23 +11,17 @@ def speech_to_text():
 
 
 curr_board = Board(8, 8)
-print(curr_board.turn)
-
-move = curr_board.get_input(curr_board, curr_board.turn)
-
-#move the pieces and print
-print(move)
-# curr_board.display()
 
 game_over = False
 
 #start game
 while not curr_board.winner:
     #get first user input
-    curr_board.get_input(curr_board, curr_board.turn)
-
+    curr_board.display()
+    curr_board.move(curr_board, curr_board.turn)
     #is checkmate?
-    if curr_board.
+    if curr_board.winner != None:
+        break
     #switch turns 
 
 

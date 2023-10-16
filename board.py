@@ -191,7 +191,6 @@ class Board:
 
 
         if col not in col_dict:
-            print(col)
             return []
         else:
             col = col_dict[col]
@@ -209,11 +208,6 @@ class Board:
 
         #specified it is pawn
         #if both are given, just check that space
-        print(unit)
-        print(col)
-        print(row)
-        print(spec_col)
-        print(spec_row)
         
         if spec_col and spec_row:
             if self.board[spec_row][spec_col] != 0:
