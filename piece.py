@@ -179,7 +179,7 @@ class Queen(Piece):
             djL += 1
         
         for di in range(i - 1, -1, -1):
-            if djR < 0:
+            if djR > -1:
                 p = board[di][djR]
                 if p == 0:
                     moves.append((djR, di))
@@ -193,9 +193,9 @@ class Queen(Piece):
 
         djL = j + 1
         djR = j - 1
-        for di in range(i, 8):
+        for di in range(i + 1, 8):
             if djL < 8:
-                p = board[di][djR]
+                p = board[di][djL]
                 if p == 0:
                     moves.append((djL, di))
                 elif p.color != self.color:
@@ -205,10 +205,10 @@ class Queen(Piece):
                     break
             djL += 1
 
-        for di in range(i, 8):
-            if djR > 0:
+        for di in range(i + 1, 8):
+            if djR > -1:
                 p = board[di][djR]
-                if p == 0 :
+                if p == 0:
                     moves.append((djR, di))
                 elif p.color != self.color:
                     moves.append((djR, di))
@@ -317,7 +317,7 @@ class Bishop(Piece):
             djL += 1
         
         for di in range(i - 1, -1, -1):
-            if djR < 0:
+            if djR > -1:
                 p = board[di][djR]
                 if p == 0:
                     moves.append((djR, di))
@@ -331,9 +331,9 @@ class Bishop(Piece):
 
         djL = j + 1
         djR = j - 1
-        for di in range(i, 8):
+        for di in range(i + 1, 8):
             if djL < 8:
-                p = board[di][djR]
+                p = board[di][djL]
                 if p == 0:
                     moves.append((djL, di))
                 elif p.color != self.color:
@@ -343,8 +343,8 @@ class Bishop(Piece):
                     break
             djL += 1
 
-        for di in range(i, 8):
-            if djR > 0:
+        for di in range(i + 1, 8):
+            if djR > -1:
                 p = board[di][djR]
                 if p == 0:
                     moves.append((djR, di))

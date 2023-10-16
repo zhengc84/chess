@@ -239,8 +239,8 @@ class Board:
                 for j in range(8):
                     if self.board[i][j] != 0:
                         if self.board[i][j].name == unit and self.board[i][j].color == color:
-                            print(self.board[i][j].move_list)
                             if (col, row) in self.board[i][j].move_list:
+                                print(self.board[i][j].move_list)
                                 final_move.append((i, j))
                                 final_move.append((row, col))
 
@@ -280,19 +280,22 @@ class Board:
             cboard[end[0]][end[1]].change_pos((start[0],start[1]))
             cboard[start[0]][start[1]] = cboard[end[0]][end[1]]
             self.board = cboard
+            print("cannot move piece, king under check")
             changed = False
+            
+            return changed
 
+        if self.turn == 'w':
+            self.turn = 'b'
+        else:
+            self.turn = 'w'
+        
         if changed:
             self.last = (start, end)
             if self.turn == "w":
                 self.storedTime1 += (time.time() - self.startTime)
             else:
                 self.storedTime2 += (time.time() - self.startTime)
-
-        if self.turn == 'w':
-            self.turn = 'b'
-        else:
-            self.turn = 'w'
 
         return changed
 
@@ -304,10 +307,8 @@ if __name__ == "__main__":
     while not curr_board.winner:
 
         #print the current turn
-        if curr_board.turn == 'w':
-            print('turn: white')
-        else:
-            print('turn: black')
+        print('turn: ' + curr_board.turn)
+    
 
         # try:
         if curr_board.move(curr_board, curr_board.turn):
