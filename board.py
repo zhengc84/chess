@@ -124,15 +124,34 @@ class Board:
             
             if king is not None:
                 all_moves = king.valid_moves(self.board)
-                danger_moves = self.get_checked_moves(self.color)
+                danger_moves = self.get_checked_moves(color)
                 
+                potential = []
                 danger_count = 0
                 for moves in all_moves:
-                    if move in danger_moves:
-                        danger_count += 1 
+                    if moves in danger_moves:
+                        danger_count += 1
+                    else:
+                        potential.extend(moves)
                 
+                #no legal moves (not capture)
                 if danger_count == len(all_moves):
                     return True
+                
+                #capturing attacker
+                if len(potential) == 2:
+                    tempx = king.row 
+                    tempy = king.col 
+                    x = potential[0]
+                    y = potential[1]
+                    cboard = self.board[:]
+                    
+                    king.change_pos((x, y))
+                    cboard[y][x] = king
+                    cboard[tempx][tempy] = 0
+                    self.board = cboard
+                    if self.checked(color):
+                        return True
 
 
         return False
@@ -246,21 +265,32 @@ class Board:
 
                         
         if not final_move:
-            print(final_move)
-            return ('invalid move')
+            return []
         else:
-            print(final_move)
             return final_move
 
-        
+     
+    #TODO: add error checking for invalid moves
     def move(self, board, color):
+        #check checkmate 
+        if self.checkmate(color):
+            if color == "w":
+                self.winner = "b"
+            else:
+                self.winner = "w"
+            return False
         move_input = self.get_input(board, color)
-        #have to make sure not in check or move out of check
-        start = move_input[0]
-        end = move_input[1]
         under_check = self.checked(color)
         cboard = self.board[:]
         changed = False
+        #error checking
+        if not move_input:
+            changed = False
+            print("invalid move")
+            return changed
+        #have to make sure not in check or move out of check
+        start = move_input[0]
+        end = move_input[1]
         
         #if the piece is a pawn
         if cboard[start[0]][start[1]].pawn:
@@ -312,10 +342,13 @@ if __name__ == "__main__":
 
         # try:
         if curr_board.move(curr_board, curr_board.turn):
-            print('true')
             curr_board.display()
+            print(curr_board.turn)
+            print(curr_board.winner)
         else:
             print("error")
+    
+    print("winner of the game is: " + curr_board.winner)
         # except:
         #     print("unable to process")
 
