@@ -26,7 +26,7 @@ const GameOver = () => {
                 </p>
             )}
             <img 
-                src={requestAnimationFrame('../../assets/play-again.jpg')}
+                src={require('../../assets/play-again.jpg')}
                 alt="play again"
                 className="img"
             />
